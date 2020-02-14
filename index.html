@@ -17,7 +17,7 @@
 				// document.body.appendChild( renderer.domElement );
 
 				scene = new THREE.Scene();
-				// scene.background = new THREE.Color(0xdddddd);
+				scene.background = new THREE.Color(0xdddddd);
 				camera = new THREE.PerspectiveCamera(15,window.innerWidth/window.innerHeight,1,2000);
 				camera.rotation.y = 45/180*Math.PI;
 				camera.position.x = 1000;
@@ -53,13 +53,33 @@
 				controls.addEventListener('change', renderer);
 
 				
+				// let loader = new THREE.GLTFLoader();
+				// loader.load('scene.gltf', function(gltf){
+				// car = gltf.scene.children[0];
+				// car.scale.set(0.5,0.5,0.5);
+				// scene.add(gltf.scene);
+				// animate();
+				// });
+
 				let loader = new THREE.GLTFLoader();
-				loader.load('scene.gltf', function(gltf){
-				car = gltf.scene.children[0];
-				car.scale.set(0.5,0.5,0.5);
-				scene.add(gltf.scene);
-				animate();
-				});
+				loader.load( 'Motobike/scene.gltf', function( gltf ) {
+					moto = gltf.scene.children[0];
+					moto.scale.set(0.5,0.5,0.5);
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
+
+				loader.load( 'Car/scene.gltf', function( gltf ) {
+					car = gltf.scene.children[0];
+					car.scale.set(0.1,0.1,0.1);
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
+
 			}
 			function animate() {
 				renderer.render(scene,camera);
