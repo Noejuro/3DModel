@@ -12,22 +12,20 @@
 		<script>
 			let scene, camera, renderer, controls;
 			function init() {
-				// renderer = new THREE.WebGLRenderer();
-				// // renderer.setSize( window.innerWidth, window.innerHeight );
-				// document.body.appendChild( renderer.domElement );
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color(0xdddddd);
+				//scene.background = new THREE.Color(0xdddddd);
+
 				camera = new THREE.PerspectiveCamera(15,window.innerWidth/window.innerHeight,1,2000);
 				camera.rotation.y = 45/180*Math.PI;
-				camera.position.x = 1000;
-				camera.position.y = 1000;
+				camera.position.x = 800;
+				camera.position.y = 100;
 				camera.position.z = 1000;
 
 
 				hlight = new THREE.AmbientLight (0x404040,100);
 				scene.add(hlight);
-				directionalLight = new THREE.DirectionalLight(0xffffff,100);
+				directionalLight = new THREE.DirectionalLight(0xffffff,200);
 				directionalLight.position.set(0,1,0);
 				directionalLight.castShadow = true;
 				scene.add(directionalLight);
@@ -44,12 +42,33 @@
 				light4.position.set(-500,300,500);
 				scene.add(light4);
 
+
+				// spotLight = new THREE.SpotLight( 0xffffff, 1 );
+				// spotLight.position.set( 4000, 2000, 2000 );
+				// spotLight.angle = Math.PI / 4;
+				// spotLight.penumbra = 0.05;
+				// spotLight.decay = 2;
+				// spotLight.distance = 300;
+
+				// spotLight.castShadow = true;
+				// spotLight.shadow.mapSize.width = 2024;
+				// spotLight.shadow.mapSize.height = 2024;
+				// spotLight.shadow.camera.near = 100;
+				// spotLight.shadow.camera.far = 200;
+				// scene.add( spotLight );
+
+				// lightHelper = new THREE.SpotLightHelper( spotLight );
+				// scene.add( lightHelper );
+
+				// shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
+				// scene.add( shadowCameraHelper );
+
+
 				renderer = new THREE.WebGLRenderer({antialias:true});
 				renderer.setSize(window.innerWidth,window.innerHeight);
 				document.body.appendChild(renderer.domElement);
 
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
-				// controls = new THREE.OrbitControls(camera);
 				controls.addEventListener('change', renderer);
 
 				
@@ -62,18 +81,32 @@
 				// });
 
 				let loader = new THREE.GLTFLoader();
-				loader.load( 'Motobike/scene.gltf', function( gltf ) {
+				loader.load( 'Models/Motobike/scene.gltf', function( gltf ) {
 					moto = gltf.scene.children[0];
-					moto.scale.set(0.5,0.5,0.5);
+					moto.scale.set(0.15,0.15,0.15);
+					moto.position.set(-20,-50,100);
+					// moto.rotation.set(90,0,90);
+					
 					scene.add( gltf.scene );
 					animate();
 				}, undefined, function ( error ) {
 					console.error( error );
 				} );
 
-				loader.load( 'Car/scene.gltf', function( gltf ) {
+				loader.load( 'Models/House/scene.gltf', function( gltf ) {
+					house = gltf.scene.children[0];
+					house.scale.set(0.5,0.5,0.5);
+					house.position.set(-240,-50,170);
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
+
+				loader.load( 'Models/Car/scene.gltf', function( gltf ) {
 					car = gltf.scene.children[0];
-					car.scale.set(0.1,0.1,0.1);
+					car.scale.set(0.05,0.05,0.05);
+					car.position.set(110,-30,20);
 					scene.add( gltf.scene );
 					animate();
 				}, undefined, function ( error ) {
@@ -88,5 +121,6 @@
 			init();
 
 		</script>
+		<button>Add a 3D Model</button>
 	</body>
 </html>
