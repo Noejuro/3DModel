@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset=UTF-8 />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
   </head>
 
 	<body>
@@ -102,6 +102,7 @@
 				}, undefined, function ( error ) {
 					console.error( error );
 				} );
+								
 
 				loader.load( 'Models/Car/scene.gltf', function( gltf ) {
 					car = gltf.scene.children[0];
@@ -113,14 +114,67 @@
 					console.error( error );
 				} );
 
+				loader.load( 'Models/Water_Motor_Pump/scene.gltf', function( gltf ) {
+					waterMotor = gltf.scene.children[0];
+					waterMotor.scale.set(0.5,0.5,0.5);
+					waterMotor.position.set(163,-44,-70);
+					waterMotor.visible = false;
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
+
+				loader.load( 'Models/Water_Tank/scene.gltf', function( gltf ) {
+					waterTank = gltf.scene.children[0];
+					waterTank.scale.set(0.1,0.1,0.1);
+					waterTank.position.set(25,50,-19);
+					waterTank.visible = false;
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
+
 			}
 			function animate() {
 				renderer.render(scene,camera);
 				requestAnimationFrame(animate);
 			}
+
+			function changeMoto() {
+				console.log("Changing");
+				console.log(this.moto.visible);
+				this.moto.visible = !this.moto.visible;
+				console.log(this.moto.visible);
+			}
+
+			function changeCar() {
+				console.log("Changing");
+				console.log(this.car.visible);
+				this.car.visible = !this.car.visible;
+				console.log(this.car.visible);
+			}
+
+			function changeWaterTank() {
+				console.log("Changing");
+				console.log(this.waterTank.visible);
+				this.waterTank.visible = !this.waterTank.visible;
+				console.log(this.waterTank.visible);
+			}
+
+			function changeWaterMotor() {
+				console.log("Changing");
+				console.log(this.waterMotor.visible);
+				this.waterMotor.visible = !this.waterMotor.visible;
+				console.log(this.waterMotor.visible);
+			}
 			init();
 
 		</script>
-		<button>Add a 3D Model</button>
+		<button onclick="changeMoto()">Motorbike</button>
+		<button onclick="changeCar()">Datsun 1972</button>
+		<button onclick="changeWaterTank()">Water Tank</button>
+		<button onclick="changeWaterMotor()">Water Motor Pump</button>
 	</body>
 </html>
