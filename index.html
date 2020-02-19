@@ -11,6 +11,10 @@
 		<script src="js/OrbitControls.js"></script>
 		<script>
 			let scene, camera, renderer, controls;
+			var raycaster, selectedObject;
+
+			var mouse = new THREE.Vector2(), INTERSECTED;
+
 			function init() {
 
 				scene = new THREE.Scene();
@@ -25,44 +29,26 @@
 
 				// hlight = new THREE.AmbientLight (0x404040,100);
 				// scene.add(hlight);
-				directionalLight = new THREE.DirectionalLight(0xffffff,200);
-				directionalLight.position.set(0,1,0);
-				directionalLight.castShadow = true;
-				scene.add(directionalLight);
-				light = new THREE.PointLight(0xc4c4c4,10);
-				light.position.set(0,300,500);
-				scene.add(light);
-				light2 = new THREE.PointLight(0xc4c4c4,10);
-				light2.position.set(500,100,0);
-				scene.add(light2);
-				light3 = new THREE.PointLight(0xc4c4c4,10);
-				light3.position.set(0,100,-500);
-				scene.add(light3);
-				light4 = new THREE.PointLight(0xc4c4c4,10);
-				light4.position.set(-500,300,500);
-				scene.add(light4);
+				// directionalLight = new THREE.DirectionalLight(0xffffff,200);
+				// directionalLight.position.set(0,1,0);
+				// directionalLight.castShadow = true;
+				// scene.add(directionalLight);
+				// light = new THREE.PointLight(0xc4c4c4,10);
+				// light.position.set(0,300,500);
+				// scene.add(light);
+				// light2 = new THREE.PointLight(0xc4c4c4,10);
+				// light2.position.set(500,100,0);
+				// scene.add(light2);
+				// light3 = new THREE.PointLight(0xc4c4c4,10);
+				// light3.position.set(0,100,-500);
+				// scene.add(light3);
+				// light4 = new THREE.PointLight(0xc4c4c4,10);
+				// light4.position.set(-500,300,500);
+				// scene.add(light4);
 
-
-				// spotLight = new THREE.SpotLight( 0xffffff, 1 );
-				// spotLight.position.set( 4000, 2000, 2000 );
-				// spotLight.angle = Math.PI / 4;
-				// spotLight.penumbra = 0.05;
-				// spotLight.decay = 2;
-				// spotLight.distance = 300;
-
-				// spotLight.castShadow = true;
-				// spotLight.shadow.mapSize.width = 2024;
-				// spotLight.shadow.mapSize.height = 2024;
-				// spotLight.shadow.camera.near = 100;
-				// spotLight.shadow.camera.far = 200;
-				// scene.add( spotLight );
-
-				// lightHelper = new THREE.SpotLightHelper( spotLight );
-				// scene.add( lightHelper );
-
-				// shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
-				// scene.add( shadowCameraHelper );
-
+				var light = new THREE.DirectionalLight( 0xffffff, 1 );
+				light.position.set( 1, 1, 1 ).normalize();
+				scene.add( light );
 
 				renderer = new THREE.WebGLRenderer({antialias:true});
 				renderer.setSize(window.innerWidth,window.innerHeight-100);
@@ -86,6 +72,7 @@
 					moto.scale.set(0.15,0.15,0.15);
 					moto.position.set(-20,-50,100);
 					// moto.rotation.set(90,0,90);
+					moto.name = "Moto";
 					
 					scene.add( gltf.scene );
 					animate();
@@ -97,17 +84,7 @@
 					house = gltf.scene.children[0];
 					house.scale.set(0.5,0.5,0.5);
 					house.position.set(-240,-50,170);
-					scene.add( gltf.scene );
-					animate();
-				}, undefined, function ( error ) {
-					console.error( error );
-				} );
-								
-
-				loader.load( 'Models/Car/scene.gltf', function( gltf ) {
-					car = gltf.scene.children[0];
-					car.scale.set(0.05,0.05,0.05);
-					car.position.set(110,-30,20);
+					house.name = "House";
 					scene.add( gltf.scene );
 					animate();
 				}, undefined, function ( error ) {
@@ -119,6 +96,7 @@
 					waterMotor.scale.set(0.5,0.5,0.5);
 					waterMotor.position.set(163,-44,-70);
 					waterMotor.visible = false;
+					waterMotor.name = "Water_Motor";
 					scene.add( gltf.scene );
 					animate();
 				}, undefined, function ( error ) {
@@ -130,13 +108,59 @@
 					waterTank.scale.set(0.1,0.1,0.1);
 					waterTank.position.set(25,50,-19);
 					waterTank.visible = false;
+					waterTank.name = "Water_Tank";
 					scene.add( gltf.scene );
 					animate();
 				}, undefined, function ( error ) {
 					console.error( error );
 				} );
 
+				loader.load( 'Models/Hydrant/scene.gltf', function( gltf ) {
+					hydrant = gltf.scene.children[0];
+					hydrant.scale.set(0.1,0.1,0.1);
+					hydrant.position.set(25,50,-19);
+					hydrant.visible = false;
+					hydrant.name = "Hydrant";
+					hydrant.id = 2;
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
+
+				raycaster = new THREE.Raycaster();
+
+				
+
+				document.addEventListener( 'click', onDocumentMouseMove, false );	
+
 			}
+
+			function onDocumentMouseMove( event ) {
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+				raycaster.setFromCamera( mouse, camera );
+
+				var intersects = raycaster.intersectObjects( scene.children, true );
+				
+				if(intersects.length > 0)
+				{selectedObject = intersects[0].object.userData.name;
+				
+				console.log(intersects[0].object.userData.name);
+				if(selectedObject == "water_tank__z_brush_Mat.4_0")
+					alert("Has seleccionado el tinaco");
+				selectedObject = null;
+				}
+				
+
+
+			}
+
+
 			function animate() {
 				renderer.render(scene,camera);
 				requestAnimationFrame(animate);
@@ -147,13 +171,6 @@
 				console.log(this.moto.visible);
 				this.moto.visible = !this.moto.visible;
 				console.log(this.moto.visible);
-			}
-
-			function changeCar() {
-				console.log("Changing");
-				console.log(this.car.visible);
-				this.car.visible = !this.car.visible;
-				console.log(this.car.visible);
 			}
 
 			function changeWaterTank() {
@@ -173,7 +190,6 @@
 
 		</script>
 		<button onclick="changeMoto()">Motorbike</button>
-		<button onclick="changeCar()">Datsun 1972</button>
 		<button onclick="changeWaterTank()">Water Tank</button>
 		<button onclick="changeWaterMotor()">Water Motor Pump</button>
 	</body>
@@ -182,7 +198,7 @@
 <style>
 	button {
             font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif; 
-            width: 24%; 
+            width: 32%; 
             height: 80px; 
             font-size: large; 
             background-color: transparent; 
