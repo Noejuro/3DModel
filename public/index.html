@@ -115,18 +115,6 @@
 					console.error( error );
 				} );
 
-				loader.load( './Hydrant/scene.gltf', function( gltf ) {
-					hydrant = gltf.scene.children[0];
-					hydrant.scale.set(0.1,0.1,0.1);
-					hydrant.position.set(25,50,-19);
-					hydrant.visible = true;
-					hydrant.name = "Hydrant";
-					scene.add( gltf.scene );
-					animate();
-				}, undefined, function ( error ) {
-					console.error( error );
-				} );
-
 				raycaster = new THREE.Raycaster();
 				document.addEventListener( 'click', onDocumentMouseMove, false );	
 
