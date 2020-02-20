@@ -67,7 +67,7 @@
 				// });
 
 				let loader = new THREE.GLTFLoader();
-				loader.load( 'https://threejs-dml.herokuapp.com/public/Motobike/scene.gltf', function( gltf ) {
+				loader.load( 'https://threejs-dml.herokuapp.com/app/public/Motobike/scene.gltf', function( gltf ) {
 					moto = gltf.scene.children[0];
 					moto.scale.set(0.15,0.15,0.15);
 					moto.position.set(-20,-50,100);
@@ -80,7 +80,7 @@
 					console.error( error );
 				} );
 
-				loader.load( 'https://threejs-dml.herokuapp.com/public/House/scene.gltf', function( gltf ) {
+				loader.load( 'https://threejs-dml.herokuapp.com/app/public/House/scene.gltf', function( gltf ) {
 					house = gltf.scene.children[0];
 					house.scale.set(0.5,0.5,0.5);
 					house.position.set(-240,-50,170);
@@ -91,7 +91,7 @@
 					console.error( error );
 				} );
 
-				// loader.load( 'https://threejs-dml.herokuapp.com/public/Water_Motor_Pump/scene.gltf', function( gltf ) {
+				// loader.load( 'https://threejs-dml.herokuapp.com/app/public/Water_Motor_Pump/scene.gltf', function( gltf ) {
 				// 	waterMotor = gltf.scene.children[0];
 				// 	waterMotor.scale.set(0.5,0.5,0.5);
 				// 	waterMotor.position.set(163,-44,-70);
@@ -103,7 +103,7 @@
 				// 	console.error( error );
 				// } );
 
-				loader.load( 'https://threejs-dml.herokuapp.com/public/Water_Tank/scene.gltf', function( gltf ) {
+				loader.load( 'https://threejs-dml.herokuapp.com/app/public/Water_Tank/scene.gltf', function( gltf ) {
 					waterTank = gltf.scene.children[0];
 					waterTank.scale.set(0.1,0.1,0.1);
 					waterTank.position.set(25,50,-19);
