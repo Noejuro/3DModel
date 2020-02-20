@@ -67,7 +67,7 @@
 				// });
 
 				let loader = new THREE.GLTFLoader();
-				loader.load( 'https://threejs-dml.herokuapp.com/app/public/Motobike/scene.gltf', function( gltf ) {
+				loader.load( './app/public/Motobike/scene.gltf', function( gltf ) {
 					moto = gltf.scene.children[0];
 					moto.scale.set(0.15,0.15,0.15);
 					moto.position.set(-20,-50,100);
