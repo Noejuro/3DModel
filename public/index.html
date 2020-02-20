@@ -91,17 +91,17 @@
 					console.error( error );
 				} );
 
-				// loader.load( 'https://cdn.glitch.com/7a223cfa-54dd-41cb-9339-ba4736c92d86%2FWater_Motor_Pump.glb?v=1582239666823', function( gltf ) {
-				// 	waterMotor = gltf.scene.children[0];
-				// 	waterMotor.scale.set(0.5,0.5,0.5);
-				// 	waterMotor.position.set(163,-44,-70);
-				// 	waterMotor.visible = false;
-				// 	waterMotor.name = "Water_Motor";
-				// 	scene.add( gltf.scene );
-				// 	animate();
-				// }, undefined, function ( error ) {
-				// 	console.error( error );
-				// } );
+				loader.load( 'https://cdn.glitch.com/7a223cfa-54dd-41cb-9339-ba4736c92d86%2FWater_Motor_Pump.glb?v=1582239666823', function( gltf ) {
+					waterMotor = gltf.scene.children[0];
+					waterMotor.scale.set(0.1,0.1,0.1);
+					waterMotor.position.set(25,50,-19);
+					waterMotor.visible = false;
+					waterMotor.name = "Water_Pump";
+					scene.add( gltf.scene );
+					animate();
+				}, undefined, function ( error ) {
+					console.error( error );
+				} );
 
 				loader.load( 'https://cdn.glitch.com/7a223cfa-54dd-41cb-9339-ba4736c92d86%2FWater_Tank.glb?v=1582239659688', function( gltf ) {
 					waterTank = gltf.scene.children[0];
