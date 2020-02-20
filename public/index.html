@@ -91,17 +91,17 @@
 					console.error( error );
 				} );
 
-				loader.load( 'Water_Motor_Pump/scene.gltf', function( gltf ) {
-					waterMotor = gltf.scene.children[0];
-					waterMotor.scale.set(0.5,0.5,0.5);
-					waterMotor.position.set(163,-44,-70);
-					waterMotor.visible = false;
-					waterMotor.name = "Water_Motor";
-					scene.add( gltf.scene );
-					animate();
-				}, undefined, function ( error ) {
-					console.error( error );
-				} );
+				// loader.load( 'Water_Motor_Pump/scene.gltf', function( gltf ) {
+				// 	waterMotor = gltf.scene.children[0];
+				// 	waterMotor.scale.set(0.5,0.5,0.5);
+				// 	waterMotor.position.set(163,-44,-70);
+				// 	waterMotor.visible = false;
+				// 	waterMotor.name = "Water_Motor";
+				// 	scene.add( gltf.scene );
+				// 	animate();
+				// }, undefined, function ( error ) {
+				// 	console.error( error );
+				// } );
 
 				loader.load( './Water_Tank/scene.gltf', function( gltf ) {
 					waterTank = gltf.scene.children[0];
