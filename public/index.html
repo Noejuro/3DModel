@@ -66,19 +66,19 @@
 				// animate();
 				// });
 
-				let loader = new THREE.GLTFLoader();
-				loader.load( 'https://cdn.glitch.com/7a223cfa-54dd-41cb-9339-ba4736c92d86%2FMotobike.glb?v=1582239668543', function( gltf ) {
-					moto = gltf.scene.children[0];
-					moto.scale.set(0.15,0.15,0.15);
-					moto.position.set(-20,-50,100);
-					// moto.rotation.set(90,0,90);
-					moto.name = "Moto";
+				// let loader = new THREE.GLTFLoader();
+				// loader.load( 'https://cdn.glitch.com/7a223cfa-54dd-41cb-9339-ba4736c92d86%2FMotobike.glb?v=1582239668543', function( gltf ) {
+				// 	moto = gltf.scene.children[0];
+				// 	moto.scale.set(0.15,0.15,0.15);
+				// 	moto.position.set(-20,-50,100);
+				// 	// moto.rotation.set(90,0,90);
+				// 	moto.name = "Moto";
 					
-					scene.add( gltf.scene );
-					animate();
-				}, undefined, function ( error ) {
-					console.error( error );
-				} );
+				// 	scene.add( gltf.scene );
+				// 	animate();
+				// }, undefined, function ( error ) {
+				// 	console.error( error );
+				// } );
 
 				loader.load( 'https://cdn.glitch.com/7a223cfa-54dd-41cb-9339-ba4736c92d86%2FHouse.glb?v=1582239668960', function( gltf ) {
 					house = gltf.scene.children[0];
