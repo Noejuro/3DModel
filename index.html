@@ -67,7 +67,7 @@
 				// });
 
 				let loader = new THREE.GLTFLoader();
-				loader.load( 'Models/Motobike/scene.gltf', function( gltf ) {
+				loader.load( './Models/Motobike/scene.gltf', function( gltf ) {
 					moto = gltf.scene.children[0];
 					moto.scale.set(0.15,0.15,0.15);
 					moto.position.set(-20,-50,100);
@@ -80,7 +80,7 @@
 					console.error( error );
 				} );
 
-				loader.load( 'Models/House/scene.gltf', function( gltf ) {
+				loader.load( './Models/House/scene.gltf', function( gltf ) {
 					house = gltf.scene.children[0];
 					house.scale.set(0.5,0.5,0.5);
 					house.position.set(-240,-50,170);
@@ -91,7 +91,7 @@
 					console.error( error );
 				} );
 
-				loader.load( 'Models/Water_Motor_Pump/scene.gltf', function( gltf ) {
+				loader.load( './Models/Water_Motor_Pump/scene.gltf', function( gltf ) {
 					waterMotor = gltf.scene.children[0];
 					waterMotor.scale.set(0.5,0.5,0.5);
 					waterMotor.position.set(163,-44,-70);
@@ -103,7 +103,7 @@
 					console.error( error );
 				} );
 
-				loader.load( 'Models/Water_Tank/scene.gltf', function( gltf ) {
+				loader.load( './Models/Water_Tank/scene.gltf', function( gltf ) {
 					waterTank = gltf.scene.children[0];
 					waterTank.scale.set(0.1,0.1,0.1);
 					waterTank.position.set(25,50,-19);
@@ -115,13 +115,12 @@
 					console.error( error );
 				} );
 
-				loader.load( 'Models/Hydrant/scene.gltf', function( gltf ) {
+				loader.load( './Models/Hydrant/scene.gltf', function( gltf ) {
 					hydrant = gltf.scene.children[0];
 					hydrant.scale.set(0.1,0.1,0.1);
 					hydrant.position.set(25,50,-19);
-					hydrant.visible = false;
+					hydrant.visible = true;
 					hydrant.name = "Hydrant";
-					hydrant.id = 2;
 					scene.add( gltf.scene );
 					animate();
 				}, undefined, function ( error ) {
@@ -129,9 +128,6 @@
 				} );
 
 				raycaster = new THREE.Raycaster();
-
-				
-
 				document.addEventListener( 'click', onDocumentMouseMove, false );	
 
 			}
@@ -152,7 +148,7 @@
 				
 				console.log(intersects[0].object.userData.name);
 				if(selectedObject == "water_tank__z_brush_Mat.4_0")
-					alert("Has seleccionado el tinaco");
+					alert("Has seleccionado el " + selectedObject);
 				selectedObject = null;
 				}
 				
